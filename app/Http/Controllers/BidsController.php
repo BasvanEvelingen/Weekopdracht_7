@@ -36,6 +36,7 @@ class BidsController extends Controller
     public function store(Request $request)
     {
         //
+
     }
 
     /**
