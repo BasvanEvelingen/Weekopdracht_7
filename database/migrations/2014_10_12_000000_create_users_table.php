@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
                 $table->string('zipcode')->nullable();
                 $table->string('city')->nullable();
                 $table->string('telephone')->nullable();
-                $table->string('role_id')->unsigned();
+                $table->string('role_id')->unsigned()->default('1');
                 $table->string('email')->unique();
                 $table->timestamp('email_verified_at')->nullable();
                 $table->string('password');

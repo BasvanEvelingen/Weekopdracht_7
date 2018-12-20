@@ -10,11 +10,11 @@
         <h5 class="card-title">List of the articles</h5>
         <ul class="list-group">
         @foreach ($articles as $article)
-        <li class="list-group-item">{{$article->name}}</li>
+        <li class="list-group-item"><a href="/articles/{{$article->id}}">{{$article->name}}</a></li>
         @endforeach
 
         </ul>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <a href="#" class="btn btn-info">Go somewhere</a>
         </div>
     </div>
 </div>
