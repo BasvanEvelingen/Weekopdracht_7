@@ -1,6 +1,24 @@
 body {
     font-Size: 21px;
+    background: #c3cfe2;
+    background-image: linear-gradient(to bottom, #f5f7fa 0%, #c3cfe2 100%);
+    background-repeat: no-repeat;
 }
-h1,h2,h3,h4,h5,h6 {
+h1,h2,h3 {
     font-family: Bitter,sans-serif;
+}
+a {
+    color: #333;
+}
+.prepend-style {
+    font-size: 1.4rem;
+}
+h5 {
+    font-weight: 700;
+}
+.lead {
+    font-size: 1.5rem;
+}
+.form-control-lg {
+    font-size: 1.4rem;
 }

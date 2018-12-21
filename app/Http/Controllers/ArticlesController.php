@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\User;
+
+use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
+
 
 class ArticlesController extends Controller
 {
@@ -18,6 +22,7 @@ class ArticlesController extends Controller
         return view('articles.index',['articles'=>$articles]);
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -25,8 +30,28 @@ class ArticlesController extends Controller
      */
     public function create()
     {
-        //
+        return view('articles.create');
+
     }
+
+    /**
+     * Get a validator for an incoming Article
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'text'],
+            'username' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+        ]);
+    }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -36,7 +61,7 @@ class ArticlesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -45,11 +70,12 @@ class ArticlesController extends Controller
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function show(Article $article)
+    public function show(Article $article, User $user)
     {
         //$article = Article::where('id', $article->id)->first();
         $article = Article::find($article->id);
-        return view('articles.show', ['article' => $article]);
+        $user = User::where('id', $article->user_id)->first();
+        return view('articles.show', ['article' => $article], ['user' => $user]);
     }
 
     /**
@@ -60,7 +86,9 @@ class ArticlesController extends Controller
      */
     public function edit(Article $article)
     {
-        //
+         $article = Article::find($article->id);
+        //$user = User::where('id', $article->user_id)->first();
+        return view('articles.edit', ['article' => $article]);
     }
 
     /**
@@ -72,7 +100,14 @@ class ArticlesController extends Controller
      */
     public function update(Request $request, Article $article)
     {
-        //
+
+        $articleUpdate = Article::where('id',$article->id)->update([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'price' => $request->input('price'),
+            'picture' => $request->input('picture')
+        ]);
+        return back()->withInput();
     }
 
     /**
